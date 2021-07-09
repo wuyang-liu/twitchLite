@@ -15,7 +15,7 @@ public class Game {
   @JsonProperty("name")
   private final String name;
   
-  @JsonProperty("boxArtUrl")
+  @JsonProperty("box_art_url")
   private final String boxArtUrl;
   
   private Game(Builder builder) {
@@ -39,10 +39,11 @@ public class Game {
   @JsonIgnoreProperties(ignoreUnknown = true)
   @JsonInclude(JsonInclude.Include.NON_NULL)
   public static class Builder {
+    @JsonProperty("id")
     private String id;
-    
+    @JsonProperty("name")
     private String name;
-    
+    @JsonProperty("box_art_url")
     private String boxArtUrl;
     
     public Builder() {
