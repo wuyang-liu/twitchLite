@@ -17,7 +17,12 @@ import java.util.Map;
 public class FavoriteServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    String userId = request.getParameter("user_id");
+    HttpSession session = request.getSession(false);
+    if (session == null) {
+      response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+      return;
+    }
+    String userId = (String) session.getAttribute("user_id");
     Map<String, List<Item>> itemMap;
     MySQLConnection connection = null;
     try {
@@ -38,7 +43,12 @@ public class FavoriteServlet extends HttpServlet {
   
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    String userId = request.getParameter("user_id");
+    HttpSession session = request.getSession(false);
+    if (session == null) {
+      response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+      return;
+    }
+    String userId = (String) session.getAttribute("user_id");
     ObjectMapper mapper = new ObjectMapper();
     FavoriteRequestBody body = mapper.readValue(request.getReader(), FavoriteRequestBody.class);
     if (body == null) {
@@ -61,7 +71,12 @@ public class FavoriteServlet extends HttpServlet {
   
   @Override
   protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    String userId = request.getParameter("user_id");
+    HttpSession session = request.getSession(false);
+    if (session == null) {
+      response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+      return;
+    }
+    String userId = (String) session.getAttribute("user_id");
     ObjectMapper mapper = new ObjectMapper();
     FavoriteRequestBody body = mapper.readValue(request.getReader(), FavoriteRequestBody.class);
     if (body == null) {
